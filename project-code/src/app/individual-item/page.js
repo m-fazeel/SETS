@@ -1,10 +1,10 @@
 "use client";
 
 import React from 'react'
-
+import { FaSearch } from "react-icons/fa";
 
 function Homepage() {
-    // Imaginary data fetched from a database
+
     const initialData = [
         { tagId: '001', equipmentName: 'Excavator', date: '04/23/2024', time: '2:24 AM', lastSeen: 'OT', status: 'In Use', statusColor: 'status-yellow' },
         { tagId: '002', equipmentName: 'Bulldozer', date: '04/22/2024', time: '1:24 AM', lastSeen: 'SR', status: 'Maintenance', statusColor: 'status-red' },
@@ -16,7 +16,7 @@ function Homepage() {
 
     const [sortedData, setSortedData] = React.useState(initialData);
 
-   // Placeholder data for the equipment and tag IDs
+    // Placeholder data for the equipment and tag IDs
     const equipmentData = {
         tagId: 'Tag ID',
         equipmentName: 'Equipment Name'
@@ -71,52 +71,49 @@ function Homepage() {
             <div className="flex justify-between items-center py-6">
                 <h1 className="text-3xl font-bold">Individual Item Log</h1>
             </div>
-               <div className="flex justify-between mb-4">
+            <div className="flex justify-between mb-4">
                 <div className="flex space-x-2">
                     <div className="flex flex-col">
                         <input className="border-2 border-gray-300 bg-white h-10 px-5 rounded-lg text-sm focus:outline-none"
-                               type="text" placeholder="Tag ID" disabled />
+                            type="text" placeholder="Tag ID" disabled />
                     </div>
                     <div className="flex flex-col">
                         <input className="border-2 border-gray-300 bg-white h-10 px-5 rounded-lg text-sm focus:outline-none"
-                               type="text" placeholder="Equipment Name" disabled />
+                            type="text" placeholder="Equipment Name" disabled />
                     </div>
                 </div>
             </div>
             <div className="flex mb-4">
                 <div className="flex-grow flex justify-start items-center space-x-2">
                     <input className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
-                           type="search" name="search" placeholder="Search Tag ID" />
+                        type="search" name="search" placeholder="Search Tag ID" />
                     <button className="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded">
-                        <i className="fas fa-search"></i>
+                        <FaSearch />
                     </button>
                 </div>
 
                 <div className="flex justify-end items-center space-x-2">
-                    <button className="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded">
-                        <i className="fas fa-calendar-alt"></i>
-                    </button>
                     <select className="border-2 border-gray-300 bg-white h-10 rounded-lg text-sm focus:outline-none"
-                            onChange={(e) => sortStatus(e.target.value)}>
+                        onChange={(e) => sortStatus(e.target.value)}>
                         <option>Status</option>
                         <option value="Available">Available</option>
                         <option value="In Use">In Use</option>
                         <option value="Maintenance">Maintenance</option>
                     </select>
                     <select className="border-2 border-gray-300 bg-white h-10 rounded-lg text-sm focus:outline-none"
-                            onChange={(e) => {
-                                if (e.target.value === 'Earliest Arrival') {
-                                    sortDate('asc');
-                                } else if (e.target.value === 'Latest location') {
-                                    sortDate('desc');
-                                } else if (e.target.value === 'Sterilization Room') {
-                                    sortLastSeen('asc');
-                                } else if (e.target.value === 'Operation Theatre') {
-                                    sortLastSeen('desc');
-                                } else {
-                                    sortDate('desc');
-                                }
-                            }}>
+                        onChange={(e) => {
+                            if (e.target.value === 'Earliest Arrival') {
+                                sortDate('asc');
+                            } else if (e.target.value === 'Latest location') {
+                                sortDate('desc');
+                            } else if (e.target.value === 'Sterilization Room') {
+                                sortLastSeen('asc');
+                            } else if (e.target.value === 'Operation Theatre') {
+                                sortLastSeen('desc');
+                            } else {
+                                sortDate('desc');
+                            }
+                        }}>
                         <option>Filter</option>
                         <option>Earliest Arrival</option>
                         <option>Latest Location</option>
