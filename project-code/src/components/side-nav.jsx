@@ -2,102 +2,184 @@
 
 import React from 'react';
 import Link from 'next/link';
-import {User} from "@nextui-org/react";
-import {Navbar,  NavbarBrand } from '@nextui-org/react';
+import {
+    Bell,
+    CircleUser,
+    Home,
+    LineChart,
+    Menu,
+    Package,
+    Package2,
+    Search,
+    ShoppingCart,
+    Users,
+    Archive,
+    Info,
+} from "lucide-react"
 
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Input } from "@/components/ui/input"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import useNavigation from '@/hook/use-navigation';
-import { Icon } from '@iconify/react';
+import { ModeToggle } from './toggle-darkmode';
 
 const SideNav = () => {
     const {
-        isHomeActive,
-        isExploreActive,
-        isNotificationsActive,
-        isSettingsActive,
+        isAboutUsActive,
+        isDashboardActive,
+        isOrdersActive,
+        isInventoryActive,
     } = useNavigation();
 
     return (
-        <div className="flex-col space-y-4 items-center py-0 hidden sm:flex border-r border-zinc-700 h-full  w-[120px] md:w-[250px] md:items-start fixed bg-blue-300">
-            <div className='w-full flex justify-center items-center pb-6'>
-            <div className="w-full flex justify-center items-center bg-stone-800 py-4">
-                <span className="text-white text-xl font-bold font-sans">SETS</span>
-            </div>
-            </div>
-            
-            
-            {/* <Link
-                href="/"
-                className="flex flex-row space-x-1 items-center hover:bg-white/10 p-4 rounded-full duration-200"
-            >
-                <Icon icon="bi:twitter-x" width="38" height="38" />
-            </Link> */}
+        <div className="grid min-h-screen md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+            <div className="hidden border-r bg-muted/40 md:block">
+                <div className="flex h-full max-h-screen flex-col gap-2">
+                    <div className="flex justify-between h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
+                        <Link href="/" className="flex items-center gap-2 font-semibold">
+                            <Package2 className="h-6 w-6" />
+                            <span className="">SETS</span>
+                        </Link>
 
-            <Link
-                href="/"
-                className={`flex flex-row space-x-4 items-center px-4 py-3 rounded-full duration-200  relative hover:bg-white/50 ${isHomeActive ? 'bg-white/50' : ''}`}
-            >
-                <Icon icon="mingcute:home-5-fill" width="38" height="38" />
-                <span
-                    className={`text-xl pt-2 hidden md:flex font-bold ${isHomeActive ? 'font-bold' : ''}`}
-                >
-                    Dashboard
-                </span>
-                {/* <span className='h-2 w-2 rounded-full bg-sky-500 absolute top-3 right-[16px] md:right-[100px]'></span> */}
-            </Link>
-            <Link
-                href="/inventory"
-                className={`flex flex-row space-x-4 items-center px-4 py-3 rounded-full duration-200  relative hover:bg-white/50 ${isExploreActive ? 'bg-white/50' : ''}`}
-            >
-                <Icon
-                    icon="uil:search"
-                    width="38"
-                    height="38"
-                    className="stroke-current stroke-5"
-                />
-                <span
-                    className={`text-xl pt-2 hidden md:flex ${isExploreActive ? 'font-bold' : ''}`}
-                >
-                    Inventory
-                </span>
-            </Link>
-            <Link
-                href="/notifications"
-                className={`flex flex-row space-x-4 items-center px-4 py-3 rounded-full duration-200 hover:bg-white/50 ${isNotificationsActive ? 'bg-white' : ''}`}
-            >
-                <Icon icon="mingcute:notification-fill" width="38" height="38" />
-                <span
-                    className={`text-xl pt-2 hidden md:flex ${isNotificationsActive ? 'font-bold' : ''}`}
-                >
-                    Notifications
-                </span>
-            </Link>
-            <Link
-                href="/settings"
-                className={`flex flex-row space-x-4 items-center px-4 py-3 rounded-full duration-200 hover:bg-white/50 ${isSettingsActive ? 'bg-white' : ''}`}
-            >
-                <Icon icon="ci:settings-filled" width="38" height="38" />
-                <span
-                    className={`text-xl pt-2 hidden md:flex ${isSettingsActive ? 'font-bold' : ''}`}
-                >
-                    Settings
-                </span>
-            </Link>
-
-                <Link href="/logout" className="flex flex-row space-x-4 items-center px-4 py-3 rounded-full duration-200 hover:bg-white/50 w-full">
-                    <Icon icon="ic:outline-logout" width="38" height="38" />
-                    <span className="text-  xl pt-2 hidden md:flex">Logout</span>
-                </Link>
-                <div className="mt-auto w-full flex items-center absolute inset-x-4 bottom-0 h-16">
-                <User
-                    name="Michael Scott"
-                    description="Admin"
-                    avatarProps={{
-                        src: "https://i.pravatar.cc/150?u=a04258114e29026702d"
-                    }}
-                />
+                        <ModeToggle />
+                    </div>
+                    <div className="flex-1">
+                        <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
+                            <Link
+                                href="/"
+                                className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${isAboutUsActive ? 'font-bold' : ''}`}
+                            >
+                                <Info className="h-4 w-4" />
+                                About Us
+                            </Link>
+                            <Link
+                                href="/dashboard"
+                                className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${isDashboardActive ? 'font-bold' : ''}`}
+                            >
+                                <Home className="h-4 w-4" />
+                                Dashboard
+                            </Link>
+                            <Link
+                                href="orders"
+                                className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${isOrdersActive ? 'font-bold' : ''}`}
+                            >
+                                <ShoppingCart className="h-4 w-4" />
+                                Orders
+                                <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
+                                    6
+                                </Badge>
+                            </Link>
+                            <Link
+                                href="/inventory"
+                                className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${isInventoryActive ? 'font-bold' : ''}`}
+                            >
+                                <Archive className="h-4 w-4" />
+                                Inventory
+                            </Link>
+                        </nav>
+                    </div>
+                    <div className="mt-auto p-4"></div>
+                </div>
+            </div>
+            <div className="flex flex-col">
+                {/* <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6"> */}
+                <Sheet>
+                    <SheetTrigger asChild>
+                        <Button
+                            variant="outline"
+                            size="icon"
+                            className="shrink-0 md:hidden"
+                        >
+                            <Menu className="h-5 w-5" />
+                            <span className="sr-only">Toggle navigation menu</span>
+                        </Button>
+                    </SheetTrigger>
+                    <SheetContent side="left" className="flex flex-col">
+                        <nav className="grid gap-2 text-lg font-medium">
+                            <Link
+                                href="#"
+                                className="flex items-center gap-2 text-lg font-semibold"
+                            >
+                                <Package2 className="h-6 w-6" />
+                                <span className="sr-only">SETS</span>
+                            </Link>
+                            <Link
+                                href="#"
+                                className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground ${isAboutUsActive ? 'font-bold' : ''}`}
+                            >
+                                <Home className="h-5 w-5" />
+                                About Us
+                            </Link>
+                            <Link
+                                href="#"
+                                className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground ${isOrdersActive ? 'font-bold' : ''}`}
+                            >
+                                <ShoppingCart className="h-5 w-5" />
+                                Orders
+                                <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
+                                    6
+                                </Badge>
+                            </Link>
+                            <Link
+                                href="#"
+                                className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground ${isInventoryActive ? 'font-bold' : ''}`}
+                            >
+                                <Package className="h-5 w-5" />
+                                Products
+                            </Link>
+                            <Link
+                                href="#"
+                                className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground ${isInventoryActive ? 'font-bold' : ''}`}
+                            >
+                                <Users className="h-5 w-5" />
+                                Customers
+                            </Link>
+                            <Link
+                                href="#"
+                                className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground ${isInventoryActive ? 'font-bold' : ''}`}
+                            >
+                                <LineChart className="h-5 w-5" />
+                                Analytics
+                            </Link>
+                        </nav>
+                        <div className="mt-auto"></div>
+                    </SheetContent>
+                </Sheet>
+                {/* <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="secondary" size="icon" className="rounded-full">
+                            <CircleUser className="h-5 w-5" />
+                            <span className="sr-only">Toggle user menu</span>
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem>Settings</DropdownMenuItem>
+                        <DropdownMenuItem>Support</DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem>Logout</DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu> */}
+                {/* </header> */}
             </div>
         </div>
-
     );
 };
 

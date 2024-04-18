@@ -6,29 +6,29 @@ import { usePathname } from 'next/navigation';
 
 const useNavigation = () => {
   const pathname = usePathname();
-  const [isHomeActive, setIsHomeActive] = useState(false);
-  const [isExploreActive, setIsExploreActive] = useState(false);
-  const [isNotificationsActive, setIsNotificationsActive] = useState(false);
-  const [isSettingsActive, setSettingsActive] = useState(false);
+  const [isAboutUsActive, setAboutUsActive] = useState(false);
+  const [isDashboardActive, setDashboardActive] = useState(false);
+  const [isOrdersActive, setOrdersActive] = useState(false);
+  const [isInventoryActive, setInventoryActive] = useState(false);
 
   useEffect(() => {
-    setIsHomeActive(false);
-    setIsExploreActive(false);
-    setIsNotificationsActive(false);
-    setSettingsActive(false);
+    setAboutUsActive(false);
+    setDashboardActive(false);
+    setOrdersActive(false);
+    setInventoryActive(false);
 
     switch (pathname) {
       case '/':
-        setIsHomeActive(true);
+        setAboutUsActive(true);
+        break;
+      case '/dashboard':
+        setDashboardActive(true);
+        break;
+      case '/orders':
+        setOrdersActive(true);
         break;
       case '/inventory':
-        setIsExploreActive(true);
-        break;
-      case '/notifications':
-        setIsNotificationsActive(true);
-        break;
-      case '/settings':
-        setSettingsActive(true);
+        setInventoryActive(true);
         break;
       default:
         // Handle any other cases here
@@ -37,10 +37,10 @@ const useNavigation = () => {
   }, [pathname]);
 
   return {
-    isHomeActive,
-    isExploreActive,
-    isNotificationsActive,
-    isSettingsActive,
+    isAboutUsActive,
+    isDashboardActive,
+    isOrdersActive,
+    isInventoryActive,
   };
 };
 
