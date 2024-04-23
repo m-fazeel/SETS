@@ -39,6 +39,8 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import useNavigation from '@/hook/use-navigation';
 import { ModeToggle } from './toggle-darkmode';
 
+import { CommandMenu } from './command-menu';
+
 const SideNav = () => {
     const {
         isAboutUsActive,
@@ -60,6 +62,8 @@ const SideNav = () => {
                         <ModeToggle />
                     </div>
                     <div className="flex-1">
+                        
+                        {/* <CommandMenu /> */}
                         <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
                             <Link
                                 href="/"
@@ -98,6 +102,7 @@ const SideNav = () => {
                 </div>
             </div>
             <div className="flex flex-col">
+                <CommandMenu />
                 {/* <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6"> */}
                 <Sheet>
                     <SheetTrigger asChild>
@@ -161,6 +166,8 @@ const SideNav = () => {
                         <div className="mt-auto"></div>
                     </SheetContent>
                 </Sheet>
+
+            
                 {/* <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="secondary" size="icon" className="rounded-full">
