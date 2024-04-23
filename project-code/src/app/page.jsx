@@ -1,25 +1,28 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@nextui-org/react";
 import { Grid, Card, Text } from '@nextui-org/react';
+import Hero from "../components/ui/Hero";
+import Biography from "../components/ui/Biography";
 
 
 
 const Home = () => {
+  
 
   return (
-    <div className="flex flex-col">
-
-      <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
-      </header>
-      <div>About dffdfUs</div>
-
-    </div>
-
-
-  
+    <>
+      <Hero
+        title={"Learn More About Us | Surgical Equipment Tracking System"}
+        imageUrl={"../assets/setsicon.png"}
+      />
+      
+      <Biography imageUrl={"/assets/setsicons.png"} 
+      />
+    </>
   );
-}
+};
 
 export default Home;
