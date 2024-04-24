@@ -1,19 +1,14 @@
 "use client";
 
 import React from "react";
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
 
 import {
-    ColumnDef,
     flexRender,
     getCoreRowModel,
-    useReactTable,
+    getFilteredRowModel,
     getPaginationRowModel,
     getSortedRowModel,
-    SortingState,
-    ColumnFiltersState,
-    getFilteredRowModel,
-
+    useReactTable
 } from "@tanstack/react-table";
 
 import {
@@ -30,33 +25,22 @@ import {
     DropdownMenuCheckboxItem,
     DropdownMenuContent,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 
-import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList,
-} from "@/components/ui/command"
 
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogFooter,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
-    DialogClose,
-} from "@/components/ui/dialog"
+    DialogTrigger
+} from "@/components/ui/dialog";
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
-import { Label } from "@/components/ui/label"
+import { Label } from "@/components/ui/label";
 
 function DataTable({ columns, data }) {
     const [sorting, setSorting] = React.useState([]);
@@ -133,11 +117,37 @@ function DataTable({ columns, data }) {
         closeDialog();
     }
 
-    const handleScanRfid = () => {
+    let ws;
+
+
+// have to edit this to pull the data out of the RFID reader 
+    const handleScanRfid =  () => {
         // Simulate scanning by generating a random RFID number
-        const simulatedRfidTag = Math.floor(Math.random() * 1000000).toString();
-        setRfidTag(simulatedRfidTag);
-    };
+        if (!ws || ws.readyState === WebSocket.CLOSED) {
+            // Create a new WebSocket connection if it's not open
+            ws = new WebSocket('ws://localhost:3000');
+            
+            ws.onopen = () => {
+                console.log('WebSocket connection established');
+            };
+
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                setRfidTag(data.rfidTag); // Update your state with the new RFID tag
+            };
+    
+            ws.onerror = (error) => {
+                console.error('WebSocket error:', error);
+            };
+    
+            ws.onclose = () => {
+                console.log('WebSocket connection closed');
+            };
+        } else {
+            console.log('WebSocket connection already established');
+        }
+
+};
 
 
 
@@ -276,3 +286,4 @@ function DataTable({ columns, data }) {
 }
 
 export { DataTable };
+
