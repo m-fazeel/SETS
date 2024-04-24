@@ -149,6 +149,15 @@ function DataTable({ columns, data }) {
 
 };
 
+// useEffect hook to clean up the WebSocket connection when the component unmounts
+useEffect(() => {
+    return () => {
+        if (ws) {
+            ws.close();
+        }
+    };
+}, []);
+
 
 
     return (
