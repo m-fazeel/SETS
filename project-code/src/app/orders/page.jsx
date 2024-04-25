@@ -44,115 +44,118 @@ import { CommandMenu } from '@/components/command-menu';
 import { OrderDetailDialog } from '@/components/OrderDetailDialog';
 
 async function getData() {
-  // Fetch data from your API here, dummy data for demonstration
-  return [
-    {
-      orderId: "1001",
-      items: ["Surgical Gloves", "Medical Masks"],
-      origin: "Sanitization Unit",
-      destination: "OR",
-      status: "pending",
-    },
-    {
-      orderId: "1002",
-      items: ["IV Fluids", "Surgical Gown"],
-      origin: "Sanitization Unit",
-      destination: "OR",
-      status: "processing",
-    },
-    {
-      orderId: "1003",
-      items: ["Scalpel", "Stethoscope"],
-      origin: "Sanitization Unit",
-      destination: "OR",
-      status: "success",
-    },
-    {
-      orderId: "1003",
-      items: ["Scalpel", "Stethoscope"],
-      origin: "Sanitization Unit",
-      destination: "OR",
-      status: "success",
-    },
-    {
-      orderId: "1003",
-      items: ["Scalpel", "Stethoscope"],
-      origin: "Sanitization Unit",
-      destination: "OR",
-      status: "success",
-    },
-    {
-      orderId: "1003",
-      items: ["Scalpel", "Stethoscope"],
-      origin: "Sanitization Unit",
-      destination: "OR",
-      status: "success",
-    },
-    {
-      orderId: "1003",
-      items: ["Scalpel", "Stethoscope"],
-      origin: "Sanitization Unit",
-      destination: "OR",
-      status: "success",
-    },
-    {
-      orderId: "1003",
-      items: ["Scalpel", "Stethoscope"],
-      origin: "Sanitization Unit",
-      destination: "OR",
-      status: "success",
-    },
-    {
-      orderId: "1003",
-      items: ["Scalpel", "Stethoscope"],
-      origin: "Sanitization Unit",
-      destination: "OR",
-      status: "success",
-    },
-    {
-      orderId: "1003",
-      items: ["Scalpel", "Stethoscope"],
-      origin: "Sanitization Unit",
-      destination: "OR",
-      status: "success",
-    },
-    {
-      orderId: "1003",
-      items: ["Scalpel", "Stethoscope"],
-      origin: "Sanitization Unit",
-      destination: "OR",
-      status: "success",
-    },
-    {
-      orderId: "1003",
-      items: ["Scalpel", "Stethoscope"],
-      origin: "Sanitization Unit",
-      destination: "OR",
-      status: "success",
-    },
-    {
-      orderId: "1003",
-      items: ["Scalpel", "Stethoscope"],
-      origin: "Sanitization Unit",
-      destination: "OR",
-      status: "success",
-    },
-    {
-      orderId: "1003",
-      items: ["Scalpel", "Stethoscope"],
-      origin: "Sanitization Unit",
-      destination: "OR",
-      status: "success",
-    },
-    {
-      orderId: "1003",
-      items: ["Scalpel", "Stethoscope"],
-      origin: "Sanitization Unit",
-      destination: "OR",
-      status: "success",
-    },
+  const response = await fetch("/api/orders");
+  const data = await response.json();
+  return data;
 
-  ];
+  // return [
+  //   {
+  //     orderId: "1001",
+  //     items: ["Surgical Gloves", "Medical Masks"],
+  //     origin: "Sanitization Unit",
+  //     destination: "OR",
+  //     status: "pending",
+  //   },
+  //   {
+  //     orderId: "1002",
+  //     items: ["IV Fluids", "Surgical Gown"],
+  //     origin: "Sanitization Unit",
+  //     destination: "OR",
+  //     status: "processing",
+  //   },
+  //   {
+  //     orderId: "1003",
+  //     items: ["Scalpel", "Stethoscope"],
+  //     origin: "Sanitization Unit",
+  //     destination: "OR",
+  //     status: "success",
+  //   },
+  //   {
+  //     orderId: "1003",
+  //     items: ["Scalpel", "Stethoscope"],
+  //     origin: "Sanitization Unit",
+  //     destination: "OR",
+  //     status: "success",
+  //   },
+  //   {
+  //     orderId: "1003",
+  //     items: ["Scalpel", "Stethoscope"],
+  //     origin: "Sanitization Unit",
+  //     destination: "OR",
+  //     status: "success",
+  //   },
+  //   {
+  //     orderId: "1003",
+  //     items: ["Scalpel", "Stethoscope"],
+  //     origin: "Sanitization Unit",
+  //     destination: "OR",
+  //     status: "success",
+  //   },
+  //   {
+  //     orderId: "1003",
+  //     items: ["Scalpel", "Stethoscope"],
+  //     origin: "Sanitization Unit",
+  //     destination: "OR",
+  //     status: "success",
+  //   },
+  //   {
+  //     orderId: "1003",
+  //     items: ["Scalpel", "Stethoscope"],
+  //     origin: "Sanitization Unit",
+  //     destination: "OR",
+  //     status: "success",
+  //   },
+  //   {
+  //     orderId: "1003",
+  //     items: ["Scalpel", "Stethoscope"],
+  //     origin: "Sanitization Unit",
+  //     destination: "OR",
+  //     status: "success",
+  //   },
+  //   {
+  //     orderId: "1003",
+  //     items: ["Scalpel", "Stethoscope"],
+  //     origin: "Sanitization Unit",
+  //     destination: "OR",
+  //     status: "success",
+  //   },
+  //   {
+  //     orderId: "1003",
+  //     items: ["Scalpel", "Stethoscope"],
+  //     origin: "Sanitization Unit",
+  //     destination: "OR",
+  //     status: "success",
+  //   },
+  //   {
+  //     orderId: "1003",
+  //     items: ["Scalpel", "Stethoscope"],
+  //     origin: "Sanitization Unit",
+  //     destination: "OR",
+  //     status: "success",
+  //   },
+  //   {
+  //     orderId: "1003",
+  //     items: ["Scalpel", "Stethoscope"],
+  //     origin: "Sanitization Unit",
+  //     destination: "OR",
+  //     status: "success",
+  //   },
+  //   {
+  //     orderId: "1003",
+  //     items: ["Scalpel", "Stethoscope"],
+  //     origin: "Sanitization Unit",
+  //     destination: "OR",
+  //     status: "success",
+  //   },
+  //   {
+  //     orderId: "1003",
+  //     items: ["Scalpel", "Stethoscope"],
+  //     origin: "Sanitization Unit",
+  //     destination: "OR",
+  //     status: "success",
+  //   },
+
+  // ];
 }
 
 const Orders = () => {
