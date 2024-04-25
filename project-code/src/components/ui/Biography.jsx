@@ -1,36 +1,28 @@
 import React from "react";
 
+import '../sonum.css'
+import Image from "next/image";
+
 const Biography = ({imageUrl}) => {
   return (
     <>
       <div className="container biography">
         <div className="banner">
-          <img src={imageUrl} alt="setsicon" />
+          <Image src={imageUrl} alt="fazeel" />
         </div>
         <div className="banner">
-          <p>Meet Team TheatreOps</p>
-          <h3>Who We Are</h3>
+          <h3>Mujaddad Fazeel</h3>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
-            blanditiis sequi aperiam. Debitis fugiat harum ex maxime illo
-            consequatur mollitia voluptatem omnis nihil nesciunt beatae esse
-            ipsam, sapiente totam aspernatur porro ducimus aperiam nisi. Ex
-            magnam voluptatum consectetur reprehenderit fugiat recusandae aut
-            similique illum natus velit, praesentium nostrum nesciunt. Deleniti,
-            nesciunt laboriosam totam iusto!
+          Meet Fazeel, a seasoned Full Stack Developer and a proud senior at the University of Texas at Arlington, 
+          where he is completing his Bachelor's degree in Computer Science. 
+          Mujaddad has honed his skills in both front-end and back-end development, ensuring that every aspect of the websites 
+          and applications he works on is top-notch. With a keen focus on delivering successful and effective digital products, 
+          he brings a meticulous and innovative approach to our team.
           </p>
-          <p>We are all in 2024!</p>
-          <p>We are working on a MERN STACK PROJECT.</p>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
-            assumenda exercitationem accusamus sit repellendus quo optio dolorum
-            corporis corrupti. Quas similique vel minima veniam tenetur
-            obcaecati atque magni suscipit laboriosam! Veniam vitae minus nihil
-            cupiditate natus provident. Ex illum quasi pariatur odit nisi
-            voluptas illo qui ipsum mollitia. Libero, assumenda?
+            //add what he has worked on
           </p>
-          <p>Lorem ipsum dolor sit amet!</p>
-          <p>Coding is fun!</p>
+          
         </div>
       </div>
     </>
