@@ -27,7 +27,7 @@ body {
 p,
 span,
 a {
-  font-size: 20px;
+  font-size: 16px;
 }
 h1 {
   font-size: 36px;
@@ -75,8 +75,8 @@ h6 {
 .hero {
   display: flex;
   gap: 50px;
-  padding-top: 120px;
-  padding-bottom: 120px;
+  padding-top: 20px;
+  padding-bottom: 0px;
   position: relative;
 }
 .hero .banner {
@@ -87,9 +87,9 @@ h6 {
   max-width: 650px;
 }
 .hero .banner h1 {
-  letter-spacing: 2px;
-  word-spacing: 5px;
-  font-size: 40px;
+  letter-spacing: 1px;
+  word-spacing: 2px;
+  font-size: 20px;
 }
 .hero .banner p {
   color: #111;
@@ -258,6 +258,12 @@ h6 {
   padding-top: 40px;
   padding-bottom: 60px;
 }
+
+.biography .banner img {
+  width: 50%; /* or any other percentage or fixed size you prefer */
+  /* more styles if needed */
+}
+
 .biography .banner:first-child {
   flex: 1;
   display: flex;
@@ -271,9 +277,14 @@ h6 {
   gap: 10px;
 }
 .biography .banner h3 {
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 3px;
 }
+.biography .banner p {
+  font-size: 80%; /* or any other percentage or fixed size you prefer */
+  /* more styles if needed */
+}
+
 .biography .banner p:first-child {
   font-size: 24px;
   letter-spacing: 2px;
