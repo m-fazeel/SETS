@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from 'react';
 
 import {
     flexRender,
@@ -117,6 +117,7 @@ function DataTable({ columns, data }) {
         closeDialog();
     }
 
+    
     let ws;
 
 
@@ -125,7 +126,7 @@ function DataTable({ columns, data }) {
         // Simulate scanning by generating a random RFID number
         if (!ws || ws.readyState === WebSocket.CLOSED) {
             // Create a new WebSocket connection if it's not open
-            ws = new WebSocket('ws://localhost:3000');
+            ws = new WebSocket('ws://localhost:6789');
             
             ws.onopen = () => {
                 console.log('WebSocket connection established');
