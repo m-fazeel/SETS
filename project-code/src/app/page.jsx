@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@nextui-org/react";
 import { Grid, Card, Text } from '@nextui-org/react';
-
+import img from '../../assets/system.drawio.png'
 
 
 const Home = () => {
