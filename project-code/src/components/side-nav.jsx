@@ -15,6 +15,7 @@ import {
     Users,
     Archive,
     Info,
+    NotebookPen
 } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
@@ -73,18 +74,18 @@ const SideNav = () => {
                                 About Us
                             </Link>
                             <Link
-                                href="/dashboard"
+                                href="/request-equipment"
                                 className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${isDashboardActive ? 'font-bold' : ''}`}
                             >
-                                <Home className="h-4 w-4" />
-                                Dashboard
+                                <NotebookPen className="h-4 w-4" />
+                                Request Equipment
                             </Link>
                             <Link
                                 href="orders"
                                 className={`flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${isOrdersActive ? 'font-bold' : ''}`}
                             >
                                 <ShoppingCart className="h-4 w-4" />
-                                Orders
+                                Order History
                                 <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
                                     6
                                 </Badge>
