@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useEffect } from "react";
-import { useRouter } from 'next/router'
+
 
 
 
@@ -105,7 +105,7 @@ function DataTable({ columns, data }) {
     };
 
 
-    const router = useRouter();
+    // const router = useRouter();
 
     const table = useReactTable({
         data,
@@ -208,8 +208,6 @@ function DataTable({ columns, data }) {
                     }
                     className="max-w-sm"
                 />
-
-
 
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
