@@ -1,7 +1,10 @@
 "use client";
 
 import React from "react";
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
+import { useEffect } from "react";
+
+
+
 
 import {
     ColumnDef,
@@ -23,6 +26,7 @@ import {
     TableHead,
     TableHeader,
     TableRow,
+    TableCaption,
 } from "@/components/ui/table";
 
 import {
@@ -58,6 +62,8 @@ import { cn } from "@/lib/utils"
 
 import { Label } from "@/components/ui/label"
 
+
+
 function DataTable({ columns, data }) {
     const [sorting, setSorting] = React.useState([]);
     const [filters, setFilters] = React.useState([]);
@@ -65,17 +71,41 @@ function DataTable({ columns, data }) {
     const [selectedRowData, setSelectedRowData] = React.useState(null);
     const [rfidTag, setRfidTag] = React.useState('');
     const [dialogOpen, setDialogOpen] = React.useState(false);
+    const [checkedItems, setCheckedItems] = React.useState({});
+
+    const fetchOrders = async () => {
+        const response = await fetch('/api/orders');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    };
+
+
+    useEffect(() => {
+        fetchOrders();
+    }, []);
+
+    // use effect for rfid tag
+    useEffect(() => {
+        if (dialogOpen) {
+            setRfidTag(selectedRowData?.rfidTag || '');
+        }
+    }, [dialogOpen]);
+
 
     const closeDialog = () => {
         setDialogOpen(false);
-        setSelectedRowData(null);  // Clear selection when closing dialog
+        setSelectedRowData(null);
     };
 
     const openDialog = (row) => {
         setSelectedRowData(row.original);
-        setRfidTag('');
         setDialogOpen(true);
     };
+
+
+    // const router = useRouter();
 
     const table = useReactTable({
         data,
@@ -93,7 +123,6 @@ function DataTable({ columns, data }) {
             columnVisibility,
         },
 
-
     });
 
     const DetailField = ({ label, value }) => (
@@ -103,35 +132,57 @@ function DataTable({ columns, data }) {
         </div>
     );
 
-    function handleSubmit() {
-        // Log current changes for debugging
-        console.log("Saving changes...");
-        console.log({
-            orderId: selectedRowData.orderId,
-            rfidTag,
-        });
-    
-        // Check if data is managed locally or needs to be updated externally
-        if (Array.isArray(data)) {
-            // Create a new array with the updated row
-            const updatedData = data.map(item => {
-                if (item.orderId === selectedRowData.orderId) {
-                    return {
-                        ...item,
-                        rfidTag: rfidTag, // Update RFID tag
-                        status: "Processing" // Update status to "Processing"
-                    };
-                }
-                return item;
-            });
-    
-            // Update the state with the new data array, if using local state
-            // If `data` is a prop controlled by a parent component, you would instead call a function passed as a prop here, e.g., updateData(updatedData);
+    const ItemsList = ({ items }) => (
+        <div className="space-y-1">
+            {items.map((item, index) => (
+                <div key={index} className="flex items-center justify-between p-2 rounded-lg">
+                    <Label className="flex-1">{item}</Label>
+                    <input
+                        type="checkbox"
+                        checked={checkedItems[index] || false}
+                        onChange={() => handleCheckboxChange(index)}
+                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                </div>
+            ))}
+        </div>
+    );
+
+    async function handleSubmit() {
+        if (!selectedRowData || !rfidTag) {
+            alert("No order selected or RFID tag is missing.");
+            return;
         }
-    
-        // Close the dialog
-        closeDialog();
+
+        console.log("Submit changes for order ID:", selectedRowData.id);
+
+        try {
+            // Update the RFID tag on the selected order
+            const response = await fetch(`/api/orders/${selectedRowData.id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ rfidTag }),
+            });
+
+            if (response.ok) {
+                fetchOrders();
+                closeDialog();
+                //refresh the page
+
+
+
+            } else {
+                const errorData = await response.json();
+                throw new Error(errorData.message || "Failed to update order.");
+            }
+        } catch (error) {
+            alert(`Error: ${error.message}`);
+            console.error("Failed to update RFID tag:", error);
+        }
     }
+
 
     const handleScanRfid = () => {
         // Simulate scanning by generating a random RFID number
@@ -139,21 +190,24 @@ function DataTable({ columns, data }) {
         setRfidTag(simulatedRfidTag);
     };
 
-
+    const handleCheckboxChange = (index) => {
+        setCheckedItems((prev) => ({
+            ...prev,
+            [index]: !prev[index]
+        }));
+    };
 
     return (
         <div>
             <div className="flex items-center py-4">
                 <Input
                     placeholder="Filter orders..."
-                    value={table.getColumn("orderId")?.getFilterValue() ?? ""}
+                    value={table.getColumn("id")?.getFilterValue() ?? ""}
                     onChange={(event) =>
-                        table.getColumn("orderId")?.setFilterValue(event.target.value)
+                        table.getColumn("id")?.setFilterValue(event.target.value)
                     }
                     className="max-w-sm"
                 />
-
-
 
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -219,25 +273,32 @@ function DataTable({ columns, data }) {
                                                     <DialogTitle>Order Details</DialogTitle>
                                                 </DialogHeader>
                                                 <div className="space-y-4 py-4">
-                                                    <DetailField label="Order ID" value={selectedRowData?.orderId} />
-                                                    <DetailField label="Items" value={selectedRowData?.items.join(', ')} />
+                                                    <DetailField label="Order ID" value={selectedRowData?.id} />
                                                     <DetailField label="Origin" value={selectedRowData?.origin} />
                                                     <DetailField label="Destination" value={selectedRowData?.destination} />
+                                                    <DetailField label="Surgery Type" value={selectedRowData?.surgeryType} />
+                                                    <DetailField label="Requestor Name" value={selectedRowData?.requestorName} />
+                                                    <DetailField label="Additional Comments" value={selectedRowData?.additionalComments} />
+                                                    <DetailField label="Items" value={<ItemsList items={selectedRowData?.items?.list || []} />} />
+
+
+
                                                     <DetailField label="Status" value={selectedRowData?.status} />
                                                     <div className="grid grid-cols-4 items-center gap-4">
                                                         <Label className="text-right">RFID Tag</Label>
                                                         <Input className="col-span-2" value={rfidTag} readOnly />
                                                         <Button className="col-span-1" onClick={handleScanRfid} >Scan RFID</Button>
                                                     </div>
+                                                    <DetailField label="Time Required" value={selectedRowData?.timeRequired} />
+
                                                 </div>
                                                 <DialogFooter>
                                                     <Button onClick={handleSubmit}>Save Changes</Button>
                                                     <Button onClick={closeDialog}>Close</Button>
-
                                                 </DialogFooter>
-
                                             </DialogContent>
                                         </Dialog>
+
 
 
                                     </TableCell>

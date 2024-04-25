@@ -21,7 +21,7 @@ const useNavigation = () => {
       case '/':
         setAboutUsActive(true);
         break;
-      case '/dashboard':
+      case '/request-equipment':
         setDashboardActive(true);
         break;
       case '/orders':
