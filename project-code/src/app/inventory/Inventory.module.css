@@ -1,0 +1,29 @@
+/* Inventory.module.css */
+/* Add this to your global CSS file, such as styles/globals.css */
+.nextui-pagination-item--arrow,
+.nextui-pagination-item--arrow svg {
+  display: none !important;
+}
+
+.paginationContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Assuming .pagination is a class you can add to the Pagination component for styling */
+.pagination {
+  margin: 0 5px; /* Adjust the value as needed to bring buttons closer */
+}
+
+/* Inventory.module.css */
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* This centers the pagination and buttons if there's enough space */
+}
+
+.prevButton,
+.nextButton {
+  margin: 0 -40px; /* Adjust the value to bring buttons closer or further apart */
+}

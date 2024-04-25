@@ -12,12 +12,18 @@ import {
   Button,
 } from "@nextui-org/react";
 import { initialData } from "./equips";
+import styles from "./Inventory.module.css";
 
 const Inventory = () => {
   const [page, setPage] = useState(1);
   const [filterValue, setFilterValue] = useState("");
   const [selectedKeys, setSelectedKeys] = useState(new Set());
-  const rowsPerPage = 9;
+  const rowsPerPage = 8;
+  <style jsx>{`
+    .hideArrows .nextui-pagination-item--arrow {
+      display: none;
+    }
+  `}</style>;
 
   const filteredItems = useMemo(() => {
     return initialData.filter((item) =>
@@ -53,13 +59,20 @@ const Inventory = () => {
 
   const bottomContent = useMemo(() => {
     return (
-      <div className="py-2 px-2 flex justify-between items-center">
+      <div
+        className={`${styles.paginationContainer} py-2 px-2 flex justify-between items-center`}
+      >
         <span className="w-[30%] text-small text-default-400"></span>
-        <Button disabled={page === 1} size="sm" onPress={onPreviousPage}>
+        <Button
+          disabled={page === 1}
+          size="sm"
+          onPress={onPreviousPage}
+          className={styles.prevButton}
+        >
           Previous
         </Button>
         <Pagination
-          className="hide-arrows" // Add this class to apply the CSS rules
+          className={`${styles.pagination} ${styles.hideArrows}`}
           isCompact
           showControls
           color="primary"
@@ -67,7 +80,12 @@ const Inventory = () => {
           total={pages}
           onChange={setPage}
         />
-        <Button disabled={page === pages} size="sm" onPress={onNextPage}>
+        <Button
+          disabled={page === pages}
+          size="sm"
+          onPress={onNextPage}
+          className={styles.nextButton}
+        >
           Next
         </Button>
       </div>

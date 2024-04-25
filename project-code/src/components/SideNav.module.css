@@ -1,0 +1,50 @@
+.sidebar {
+  border-right: 1px solid #ddd;
+  background-color: var(--bg-color, white); /* Default light background */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px; /* Adjust based on your design */
+  border-bottom: 1px solid #ccc;
+  padding: 0 15px;
+}
+
+.dark-mode .sidebar {
+  --bg-color: black; /* Dark mode background */
+}
+
+.logoImage {
+  filter: drop-shadow(
+    0 0 10px rgba(0, 0, 0, 0.5)
+  ); /* Adds a subtle shadow around the logo */
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between icon and text */
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: background-color 0.3s, color 0.3s;
+  color: var(--text-color, #333); /* Default text color */
+}
+
+.navLink:hover {
+  background-color: var(--hover-bg-color, #f0f0f0); /* Hover background color */
+}
+
+.dark-mode .navLink {
+  --text-color: #fff; /* Dark mode text color */
+  --hover-bg-color: #666; /* Dark mode hover background */
+}
+
+.active {
+  font-weight: bold;
+  color: blue; /* Active link color */
+}
