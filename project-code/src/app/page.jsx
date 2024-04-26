@@ -12,9 +12,6 @@ import img6 from '../../public/ujwal.jpeg'
 import img7 from '../../public/wasif.jpeg'
 import Hero from "../components/ui/Hero";
 
-
- 
-
  
 const Home = () => {
  
@@ -24,20 +21,28 @@ const Home = () => {
  <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
       About Us
       </header>
-      
- 
-      {/* <Image src={img } alt="hero" width={500} height={500} /> */}
 
       <h1 style={{
         fontSize: '24px',
         textAlign: 'center',
         margin: '0 auto',
         width: '100%',
-        paddingTop: '20px' // You can adjust the value to your preference
+        paddingTop: '30px',
+        paddingBottom: '20px' // You can adjust the value to your preference
       }}>
           Surgical Equipment Tracking System
       </h1>
 
+      <h1 style={{
+        fontSize: '24px',
+        textAlign: 'center',
+        margin: '0 auto',
+        width: '100%',
+        //paddingTop: '20px',
+        //paddingBottom: '20px' // You can adjust the value to your preference
+      }}>
+          Welcome to the Future of Surgical Equipment Management
+      </h1>
 
         
       <Hero
@@ -50,7 +55,8 @@ const Home = () => {
         textAlign: 'center',
         margin: '0 auto',
         width: '100%',
-        paddingBottom: '20px' // You can adjust the value to your preference
+        paddingTop: '50px',
+        paddingBottom: '50px' // You can adjust the value to your preference
       }}>
           Meet Team TheatreOps
       </h1>
