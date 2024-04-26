@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@nextui-org/react";
 import { Grid, Card, Text } from '@nextui-org/react';
-import img from '../../public/setsicon.png'
+import img from '../../public/sficon.png'
 import img2 from '../../public/fazeelpic.jpeg'
 import img3 from '../../public/sonumpic.jpeg'
 import img4 from '../../public/rachpic.jpeg'
@@ -11,10 +11,10 @@ import img5 from '../../public/ammar.jpeg'
 import img6 from '../../public/ujwal.jpeg'
 import img7 from '../../public/wasif.jpeg'
 import Hero from "../components/ui/Hero";
-import Biography from "../components/ui/Biography";
+
 
  
- 
+
  
 const Home = () => {
  
@@ -39,10 +39,11 @@ const Home = () => {
       </h1>
 
 
-
+        
       <Hero
         imageUrl={img}
       />
+
 
       <h1 style={{
         fontSize: '24px',
