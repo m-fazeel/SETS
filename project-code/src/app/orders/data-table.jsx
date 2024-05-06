@@ -99,7 +99,7 @@ function DataTable({ columns, data }) {
 
     const openDialog = (row) => {
         setSelectedRowData(row.original);
-        setRfidTag(row.original.rfidTag || ''); // Reset RFID tag when opening dialog
+        setRfidTag(row.original.rfidTag || ''); 
         setDialogOpen(true);
     };
 
@@ -211,7 +211,7 @@ function DataTable({ columns, data }) {
     useEffect(() => {
         const newSocket = io('http://localhost:3000');
         setSocket(newSocket);
-        
+
         newSocket.on('rfidScan', (data) => {
             console.log("RFID scan receivedfdd:", data.tagId);
             const cleanedTagId = data.tagId.replace(/\s/g, '').slice(2);

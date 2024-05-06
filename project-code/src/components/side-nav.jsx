@@ -44,7 +44,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import useNavigation from "@/hook/use-navigation";
 import { ModeToggle } from "./toggle-darkmode";
 
-// import { CommandMenu } from './command-menu';
+import { CommandMenu } from './command-menu';
 
 const SideNav = () => {
   const {
@@ -137,7 +137,7 @@ const SideNav = () => {
         </div>
       </div>
       <div className="flex flex-col">
-        {/* <CommandMenu /> */}
+        <CommandMenu />
         {/* <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6"> */}
         <Sheet>
           <SheetTrigger asChild>
