@@ -1,10 +1,8 @@
 "use client";
 
 import React from "react";
-import { useEffect } from "react";
-
-
-
+import { useEffect, useState } from "react";
+import io from 'socket.io-client';
 
 import {
     ColumnDef,
@@ -37,15 +35,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList,
-} from "@/components/ui/command"
-
-import {
     Dialog,
     DialogContent,
     DialogDescription,
@@ -72,6 +61,10 @@ function DataTable({ columns, data }) {
     const [rfidTag, setRfidTag] = React.useState('');
     const [dialogOpen, setDialogOpen] = React.useState(false);
     const [checkedItems, setCheckedItems] = React.useState({});
+    const [isConnected, setIsConnected] = useState(false);
+    const [socket, setSocket] = useState(null);
+    
+
 
     const fetchOrders = async () => {
         const response = await fetch('/api/orders');
@@ -80,18 +73,23 @@ function DataTable({ columns, data }) {
         }
         return response.json();
     };
-
-
-    useEffect(() => {
-        fetchOrders();
-    }, []);
-
     // use effect for rfid tag
-    useEffect(() => {
-        if (dialogOpen) {
-            setRfidTag(selectedRowData?.rfidTag || '');
-        }
-    }, [dialogOpen]);
+    // useEffect(() => {
+    //     if (dialogOpen) {
+    //         setRfidTag(selectedRowData?.rfidTag || '');
+    //     }
+    // }, [dialogOpen]);
+
+    // useEffect(() => {
+    //     const intervalId = setInterval(async () => {
+    //         const response = await fetch('/api/orders');
+    //         if (!response.ok) {
+    //             throw new Error('Network response was not ok');
+    //         }
+
+
+    //     })
+    // })
 
 
     const closeDialog = () => {
@@ -101,11 +99,9 @@ function DataTable({ columns, data }) {
 
     const openDialog = (row) => {
         setSelectedRowData(row.original);
+        setRfidTag(row.original.rfidTag || ''); 
         setDialogOpen(true);
     };
-
-
-    // const router = useRouter();
 
     const table = useReactTable({
         data,
@@ -155,6 +151,7 @@ function DataTable({ columns, data }) {
         }
 
         console.log("Submit changes for order ID:", selectedRowData.id);
+        console.log("RFID tag from submit:", rfidTag);
 
         try {
             // Update the RFID tag on the selected order
@@ -163,15 +160,12 @@ function DataTable({ columns, data }) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ rfidTag }),
+                body: JSON.stringify({ rfidTag: rfidTag.trim() }),
             });
 
             if (response.ok) {
-                fetchOrders();
                 closeDialog();
-                //refresh the page
-
-
+                window.location.reload();
 
             } else {
                 const errorData = await response.json();
@@ -184,11 +178,27 @@ function DataTable({ columns, data }) {
     }
 
 
-    const handleScanRfid = () => {
-        // Simulate scanning by generating a random RFID number
-        const simulatedRfidTag = Math.floor(Math.random() * 1000000).toString();
-        setRfidTag(simulatedRfidTag);
-    };
+    // const handleScanRfid = async () => {
+    //     // ... existing code for checking connection and selected orde
+
+    //     try {
+    //         console.log("Ready to scan RFID for order ID:", selectedRowData.id);
+    //         const response = await new Promise((resolve) => {
+    //           socket.once('rfidScan', (data) => {
+    //             // Adjust according to the actual data structure sent by your server
+    //             if (data.orderId === selectedRowData.id) { 
+    //               resolve(data.tagId);
+    //             }
+    //           });
+    //         });
+    //         console.log("RFID scan received:", response);
+    //         setRfidTag("dkfjdk");
+    //     } catch (error) {
+    //         console.error("Failed to scan RFID:", error);
+    //         // Optionally update UI or show a message to the user indicating the failure
+    //     }
+    // };
+
 
     const handleCheckboxChange = (index) => {
         setCheckedItems((prev) => ({
@@ -196,6 +206,29 @@ function DataTable({ columns, data }) {
             [index]: !prev[index]
         }));
     };
+
+
+    useEffect(() => {
+        const newSocket = io('http://localhost:3000');
+        setSocket(newSocket);
+
+        newSocket.on('rfidScan', (data) => {
+            console.log("RFID scan receivedfdd:", data.tagId);
+            const cleanedTagId = data.tagId.replace(/\s/g, '').slice(2);
+            setRfidTag(cleanedTagId);
+        });
+
+        return () => {
+            newSocket.close();
+        };
+    }, []);
+
+    useEffect(() => {
+        if (dialogOpen && selectedRowData) {
+            console.log("Dialog is open for:", selectedRowData.id);
+            setRfidTag('');
+        }
+    }, [dialogOpen, selectedRowData]);
 
     return (
         <div>
@@ -287,7 +320,7 @@ function DataTable({ columns, data }) {
                                                     <div className="grid grid-cols-4 items-center gap-4">
                                                         <Label className="text-right">RFID Tag</Label>
                                                         <Input className="col-span-2" value={rfidTag} readOnly />
-                                                        <Button className="col-span-1" onClick={handleScanRfid} >Scan RFID</Button>
+                                                        {/* <Button className="col-span-1" >Scan RFID</Button> */}
                                                     </div>
                                                     <DetailField label="Time Required" value={selectedRowData?.timeRequired} />
 

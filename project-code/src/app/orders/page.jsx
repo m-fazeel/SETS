@@ -3,6 +3,8 @@
 import React from 'react';
 import { Search, CircleUser } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import io from 'socket.io-client';
+import { useEffect, useState } from 'react';
 
 import {
   DropdownMenu,
@@ -159,12 +161,39 @@ async function getData() {
 }
 
 const Orders = () => {
-  const [data, setData] = React.useState([]);
+  const [data, setData] = useState([]);
 
-  React.useEffect(() => {
-    getData().then(setData);
+  useEffect(() => {
+      const fetchData = async () => {
+          const response = await fetch('/api/orders');
+          if (response.ok) {
+              const jsonData = await response.json();
+              setData(jsonData);
+          } else {
+              throw new Error('Failed to fetch orders');
+          }
+      };
+
+      fetchData();
+
+      // Connect to socket
+      
+      
   }, []);
 
+  const updateOrdersData = (newData) => {
+    setData((prevData) => [...prevData, ...newData]);
+  };
+  
+
+  useEffect(() => {
+    const socket = io('http://localhost:3000');
+    socket.on('dataUpdated', (newData) => {
+      updateData(newData);
+    });
+
+    return () => socket.close();
+  }, []);
 
   return (
     <div className="flex flex-col">
@@ -200,7 +229,7 @@ const Orders = () => {
         </DropdownMenu>
       </header>
       <div className="container mx-auto py-10">
-        <DataTable columns={columns} data={data} />
+        <DataTable columns={columns} data={data} updatedData={updateOrdersData} />
       </div>
     </div>
   );
